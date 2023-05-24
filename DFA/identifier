@@ -1,0 +1,13 @@
+// DFA for Identifier
+digraph {
+	start
+	DEAD
+	node0 [label=S1]
+	start -> node0 [label=":"]
+	start -> DEAD
+	node1 [label=S2]
+	node0 -> node1 [label=":"]
+	node0 -> DEAD
+	node1 [shape=doublecircle]
+	rankdir=LR
+}
