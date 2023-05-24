@@ -1,22 +1,20 @@
-program nestedIfProg
+program test2
 implicit none
-   ! local variable declaration
-   integer :: a = 100,f,g=100
+   Integer :: l1, l2
+   Character (len = 80), Parameter :: a = "hello"
+   Real :: b
 
-   ! check the logical condition using if statement
-   if( a == 100 ) then
+   l1 = ((l2 + 6) * 3) == 5
+   do
+      nfact = nfact * n
+      ! print values
+      print*,  "  n  ", nfact
+   enddo
 
-   ! if condition is true then check the following
+  if (l2 > 40) then
+      print*, "hello", po
+  endif
 
-   if( b == 200 ) then
+   print*, 'Exact value of a is ', a
 
-   ! if inner if condition is true
-   print*, "Value of a is 100 and b is 200"
-
-   end if
-   end if
-
-   print*, "exact value of a is " ,  a
-   print*, "exact value of b is " ,  b
-
-end program nestedIfProg
+end program test

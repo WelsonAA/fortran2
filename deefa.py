@@ -1,4 +1,5 @@
 import graphviz
+
 ReservedWords = {
     "PROGRAM": 1,
     "IF": 2,
@@ -44,33 +45,41 @@ Operators = {".": 22,
              "<=": 40,
              "::": 41
              }
-def generate_dfa(lex,bool):
+
+
+def generate_dfa(lex, bool):
     identifier_dfa = graphviz.Digraph(comment='DFA for Identifier')
 
     identifier_dfa.node('start')
-    #identifier_dfa.node('accept', shape='doublecircle')
+    # identifier_dfa.node('accept', shape='doublecircle')
     if bool:
         identifier_dfa.node('DEAD')
     input_word = lex
     current_node = 'start'
-    a=1
+    a = 1
     for node_count, char in enumerate(input_word):
         next_node = f'node{node_count}'
-        identifier_dfa.node(next_node, label="S"+str(a))
-        identifier_dfa.edge(current_node, next_node, label=char)
+        identifier_dfa.node(next_node, label="S" + str(a))
+        identifier_dfa.edge(current_node, next_node, label=f"[{char}]")
         if bool:
-            identifier_dfa.edge(current_node,'DEAD')
+            start=ord(char[0])-1
+            start=chr(start)
+            end=ord(char[0])+1
+            end=chr(end)
+            identifier_dfa.edge(current_node, 'DEAD', label=f"^[{char}]")
         current_node = next_node
-        a=a+1
+        a = a + 1
     identifier_dfa.node(current_node, shape='doublecircle')
-    #identifier_dfa.edge(current_node, 'accept', label='')
+    # identifier_dfa.edge(current_node, 'accept', label='')
 
     identifier_dfa.attr(rankdir='LR')
 
     identifier_dfa.render('identifier', format='png', view=True, directory="DFA")
 
+
 import tkinter as tk
 from tkinter import ttk
+
 
 def create_gui(word_list):
     root = tk.Tk()
@@ -95,12 +104,9 @@ def create_gui(word_list):
         label = tk.Label(frame, text=word, font=("Arial", 12, "bold"))
         label.pack(side=tk.LEFT, padx=10)
 
-        button = tk.Button(frame, text="Click", command=lambda w=word: generate_dfa(w.upper(), w.upper() in ReservedWords or w.upper() in Operators),
+        button = tk.Button(frame, text="Click", command=lambda w=word: generate_dfa(w.upper(),
+                                                                                    w.upper() in ReservedWords or w.upper() in Operators),
                            font=("Arial", 10, "bold"))
         button.pack(side=tk.LEFT, padx=10)
 
     root.mainloop()
-
-#Example usage
-#words = ["PROGRAM", "IF", "END", "IMPLICIT", "NONE", "DO", "ELSE", "INTEGER", "REAL", "PARAMETER", "COMPLEX", "THEN", "CHARACTER", "READ", "PRINT", "LOGICAL", "TRUE", "FALSE"]
-#create_gui(words)

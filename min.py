@@ -40,7 +40,7 @@ class Token_type(Enum):  # listing all tokens type
     SINGLECOLON = 28
     THEN = 29
     LEFTPARANTHESES = 30  # (
-    LEN = 31
+    #LEN = 31
     RIGHTPARANTHESES = 32  # )
     DOUBLEQUOTATION = 33
     LESSTHANOREQUALOP = 34
@@ -126,20 +126,14 @@ Operators = {".": Token_type.Dot,
 Tokens = []  # to add tokens to list
 errors=[]
 TokensWithoutComments=[]
-Tokens = []  # to add tokens to list
 scannerErrors = []
 
 
 def find_token(text):
-    # tokens = re.findall(r'\w+|[\=\+\-\*\/\<\>\(\)\{\}\'\"\n\:\[\]\,\!\." "]', text)
-    tokens = re.findall(r'\w+|\W', text)
+    tokens = re.findall(r'\w+|[\=\+\-\*\/\<\>\(\)\{\}\'\"\n\:\[\]\,\!\." "]', text)
+    #tokens = re.findall(r'\w+|\W', text)
     print(tokens)
     i = 0
-    """while i<len(tokens):
-        if(tokens[i]=="="and tokens[i+1]=="="):
-            Tokens.append(token(i, Token_type.EQUALCOMP))
-            i+=1
-        i+=1"""
     while i < len(tokens):
         if tokens[i] == " ":
             i = i + 1
@@ -630,8 +624,6 @@ def ParamDecl(j):
 
 def declartionChoose(j):
     children = []
-
-
     temp = TokensWithoutComments[j].to_dict()
     temp1 = TokensWithoutComments[j+1].to_dict()
     if temp1['token_type'] == Token_type.COMMA:
@@ -666,7 +658,6 @@ def declartionChoose(j):
         out["index"] = j
         return out
 
-
 def Parameter(j):
     children = []
 
@@ -677,14 +668,10 @@ def Parameter(j):
         children.append(comma_dict["node"])
         parameter_dict = Match(Token_type.PARAMETER, comma_dict["index"])
         children.append(parameter_dict["node"])
-        equal_dict = Match(Token_type.EqualOp, parameter_dict["index"])
-        children.append(equal_dict["node"])
-        constant_dict = Match(Token_type.Constant, equal_dict["index"])
-        children.append(constant_dict["node"])
         Node = Tree('Parameter', children)
         out = dict()
         out["node"] = Node
-        out["index"] = constant_dict['index']
+        out["index"] = parameter_dict['index']
         return out
     else:
         out = dict()
@@ -714,7 +701,7 @@ def Expression(j):
         out["node"] = Node
         out["index"] = stringDouble_dict['index']
         return out
-    elif temp['token_type'] == Token_type.Identifier or temp['token_type'] == Token_type.Constant or temp['token_type'] == Token_type.Dot:
+    elif temp['token_type'] == Token_type.Identifier or temp['token_type'] == Token_type.Constant or temp['token_type'] == Token_type.Dot or temp['token_type'] == Token_type.LEFTPARANTHESES:
         boolean_dict = BooleanExpression(j)
         children.append(boolean_dict["node"])
         Node = Tree('Boolean Exp',children)
@@ -816,7 +803,7 @@ def CharacterFun(j):
     children.append(character_dict["node"])
     leftpara_dict = Match(Token_type.LEFTPARANTHESES, character_dict["index"])
     children.append(leftpara_dict["node"])
-    len_dict = Match(Token_type.LEN, leftpara_dict["index"])
+    len_dict = Match(Token_type.Identifier, leftpara_dict["index"])
     children.append(len_dict["node"])
     equal_dict = Match(Token_type.EqualOp, len_dict["index"])
     children.append(equal_dict["node"])
@@ -1226,7 +1213,6 @@ def Printable(j):
 
 def ifStatement(j):
     children = []
-
     if_dict = Match(Token_type.If, j)
     children.append(if_dict["node"])
     condition_dict = Condition(if_dict["index"])

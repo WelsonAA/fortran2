@@ -1,13 +1,20 @@
 // DFA for Identifier
 digraph {
 	start
-	DEAD
 	node0 [label=S1]
-	start -> node0 [label=":"]
-	start -> DEAD
+	start -> node0 [label="[M]"]
 	node1 [label=S2]
-	node0 -> node1 [label=":"]
-	node0 -> DEAD
-	node1 [shape=doublecircle]
+	node0 -> node1 [label="[E]"]
+	node2 [label=S3]
+	node1 -> node2 [label="[S]"]
+	node3 [label=S4]
+	node2 -> node3 [label="[S]"]
+	node4 [label=S5]
+	node3 -> node4 [label="[A]"]
+	node5 [label=S6]
+	node4 -> node5 [label="[G]"]
+	node6 [label=S7]
+	node5 -> node6 [label="[E]"]
+	node6 [shape=doublecircle]
 	rankdir=LR
 }
