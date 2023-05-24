@@ -1,0 +1,25 @@
+program test
+implicit none
+   logical :: l
+   integer, Parameter :: a = 100
+   integer :: b = 150
+   integer :: c, d
+   Character (m = 80) :: message
+
+   read* , l, c, d
+   if (a < 100) then
+      print*, "value of a is 100"
+   else
+      print*, "Value of a is ", a
+   endif
+
+   ! compute factorials
+   do n = 1, 10
+      nfact = nfact * n
+      ! print*, values
+      print*,  "  n  ", nfact
+   enddo
+
+   print*, "Exact value of a is ", a
+
+end program test

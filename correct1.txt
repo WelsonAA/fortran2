@@ -1,0 +1,20 @@
+program test2
+implicit none
+   Integer :: l1, l2
+   Character (len = 80), Parameter :: a = "hello"
+   Real :: b#
+!kjajdbvvbsfbnvljsfnvnl
+   l1 = ((l2 + 6) * 3) == 5
+      do
+      nfact = nfact * n
+      ! print values
+      print*,  "  n  ", nfact
+   enddo
+
+  if (l2 > 40) then
+      print*, "hello", po
+  endif
+
+   print*, 'Exact value of a is ', a
+
+end program test
