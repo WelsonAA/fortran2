@@ -130,8 +130,8 @@ scannerErrors = []
 
 
 def find_token(text):
-    tokens = re.findall(r'\w+|[\=\+\-\*\/\<\>\(\)\{\}\'\"\n\:\[\]\,\!\." "]', text)
-    #tokens = re.findall(r'\w+|\W', text)
+    #tokens = re.findall(r'\w+|[\=\+\-\*\/\<\>\(\)\{\}\'\"\n\:\[\]\,\!\." "]', text)
+    tokens = re.findall(r'\w+|\W', text)
     print(tokens)
     i = 0
     while i < len(tokens):
